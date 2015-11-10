@@ -89,10 +89,11 @@
     $scope.logOut = function() {
       $scope.authObj.$unauth();
       $scope.userID = false;
-      document.body.innerHTML = "";
-      var signInAgain = document.createElement('h3');
-      signInAgain.innerHTML = "Sign in again on the main page to access";
-      document.body.appendChild(signInAgain);
+      window.location.assign("http://students.washington.edu/rutvi/info343/SpotifyApp/");
+      // document.body.innerHTML = "";
+      // var signInAgain = document.createElement('h3');
+      // signInAgain.innerHTML = "Sign in again on the main page to access";
+      // document.body.appendChild(signInAgain);
 
     }
 
