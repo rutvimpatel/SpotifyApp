@@ -67,7 +67,7 @@ Spotify main page file for the spotify Challenge -->
 					<div class="container-fixed">
 						<h3>Popular Songs</h3>
 						<!--  For each track in the track array, this will print the name -->
-						<p ng-show="tracks.length>0" class="help-block">Click to sample</p>
+						<p ng-show="tracks.length>0" class="help-block">Click to view Album art and sample</p>
 						<ul>
 							<!-- This will play the track, and record information about the album -->
 							<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url, track.album.name, track.album.images[0].url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
