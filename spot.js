@@ -1,23 +1,25 @@
-(function() {
+// Rutvi Patel
+// Spotify Challenge
+// Due: 11/10/15
+// JavaScript file for the spotify Challenge
 
+(function() {
 
   var data;
   var baseUrl = 'https://api.spotify.com/v1/search?type=track&query='
-  // Create application with dependency 'firebase'
+  // Creates a firebase application
   var myApp = angular.module('myApp', ['firebase']);
 
-  // Bind controller, passing in $scope, $firebaseAuth, $firebaseArray, $firebaseObject
+  // This creates a controller for the app with Parameters that will allow requests to be made,
+  // and will allow the page to get songs, and authenticate users
   myApp.controller('myCtrl', function($scope, $firebaseAuth, $firebaseObject, $http, $location){
-    
-    // Create a variable 'ref' to reference your firebase storage
+
     var ref = new Firebase('https://343spotapp.firebaseio.com/');
 
-      var usersRef = ref.child("users");
+    var usersRef = ref.child("users");
 
-      // Create a firebaseObject of your users, and store this as part of $scope
-      $scope.users = $firebaseObject(usersRef);
-
-    // Create authorization object that referes to firebase
+    // firebaseObject of users
+    $scope.users = $firebaseObject(usersRef);
     $scope.authObj = $firebaseAuth(ref);
 
     // Test if already logged in
@@ -25,7 +27,7 @@
     if (authData) {
       $scope.userID = authData.uid;
     } 
-    console.log(authData);
+
     // SignUp function
     $scope.signUp = function() {
       // Create user
@@ -45,6 +47,8 @@
           // userImage:$scope.userImage,
         }
         $scope.users.$save()
+        
+        // This will redirect to spot.html once the user is logged in
         if ($scope.userID) {
           var location = window.location.href; 
           window.location.assign(location + "spot.html");
@@ -62,12 +66,14 @@
       $scope.logIn().then(function(authData){
         $scope.userID = authData.uid;
       })
+        // This will redirect to spot.html once the user is logged in
         if ($scope.userID) {
           var location = window.location.href; 
           window.location.assign(location + "spot.html");
         }
     }
 
+    // This will log in existing users
     $scope.logIn = function() {
       console.log('log in');
       return $scope.authObj.$authWithPassword({
@@ -76,7 +82,7 @@
       })
     }
 
-    // LogIn function
+    // LogIn function for new users
     $scope.newlogIn = function() {
       console.log('new log in')
       return $scope.authObj.$authWithPassword({
@@ -89,25 +95,22 @@
     $scope.logOut = function() {
       $scope.authObj.$unauth();
       $scope.userID = false;
+      // This will redirect to the login page
       window.location.assign("http://students.washington.edu/rutvi/info343/SpotifyApp/");
-      // document.body.innerHTML = "";
-      // var signInAgain = document.createElement('h3');
-      // signInAgain.innerHTML = "Sign in again on the main page to access";
-      // document.body.appendChild(signInAgain);
-
     }
 
-  
-
-
-    console.log('entered');
+    // This creates an object for the songs that the html page can reference
     $scope.audioObject = {}
     $scope.getSongs = function() {
+      // This fills the tracks array when the call to get songs is succussful
       $http.get(baseUrl + $scope.track).success(function(response){
-        data = $scope.tracks = response.tracks.items
-        
+        data = $scope.tracks = response.tracks.items       
       })
     }
+
+    // This function takes in information about the individual tracks based on 
+    // each track that is printed from the array tracks in the html, and stores
+    // it so that it will be available in other parts of the page
     $scope.play = function(song, aName, url) {
       $scope.didClick = true;
       $scope.imageLoc = "" + url;
@@ -131,6 +134,4 @@
   $('body').tooltip({
       selector: '[title]'
   });
-
-
 })();

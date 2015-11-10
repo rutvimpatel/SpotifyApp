@@ -1,79 +1,86 @@
+<!-- Rutvi Patel
+Spotify Challenge
+Due: 11/10/15
+Spotify sign in page file for the spotify Challenge -->
+
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Spotify Challenge</title>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Spotify Challenge</title>
 
-	<link rel="icon" type="image/png" href="icon.png" >
-	
-	<!-- Include libraries -->
-	<script src="https://code.jquery.com/jquery.min.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-	
-	<!-- Firebase -->
-	<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+		<link rel="icon" type="image/png" href="icon.png" >
+		
+		<!-- Include libraries -->
+		<script src="https://code.jquery.com/jquery.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+		
+		<!-- Firebase -->
+		<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 
-	<!-- AngularFire -->
-	<script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+		<!-- AngularFire -->
+		<script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
 
-	<!-- Read scripts -->
-	<script src="spot.js"></script>
-	<link href="spot.css" type="text/css" rel="stylesheet"/>	
-	
-</head>
-<body>
-	<div ng-app="myApp" ng-controller="myCtrl">
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-	    	<div class="navbar-header">
-	      		<a class="navbar-brand" href="#"><img id = "brandLogo" src = "icon.png" /></a>
-	   		</div>
-	   		<form class="navbar-form navbar-right" novalidate>
-				<div class="form-group">
-					<label for = "user" >Email: </label>
-			    	<input id = "user" name = "user" ng-model = "user" type="text" class="form-control" placeholder="Username">
-			    	<label for = "pass">Password: </label>
-			    	<input id = "pass" name = "pass" ng-model = "pass" type="password" class="form-control" placeholder="Password">
-			  	</div>
-			 	<button id = "signIn" ng-click = "signIn()" type="submit" class="btn btn-default">Sign in</button>
+		<!-- Read scripts -->
+		<script src="spot.js"></script>
+		<link href="spot.css" type="text/css" rel="stylesheet"/>	
+		
+	</head>
+	<body>
+		<!-- This access the app created in the javascript file -->
+		<div ng-app="myApp" ng-controller="myCtrl">
+			<!-- Creates a navigation bar -->
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+			    	<div class="navbar-header">
+			    		<!-- This will take the user to the top of the main page -->
+			      		<a class="navbar-brand" href="#"><img id = "brandLogo" src = "icon.png" /></a>
+			   		</div>
 
+			   		<!-- This is where the user can sign in if they already have an account -->
+			   		<form class="navbar-form navbar-right" novalidate>
+						<div class="form-group">
+							<label for = "user" >Email: </label>
+					    	<input id = "user" name = "user" ng-model = "user" type="text" class="form-control" placeholder="Username">
+					    	<label for = "pass">Password: </label>
+					    	<input id = "pass" name = "pass" ng-model = "pass" type="password" class="form-control" placeholder="Password">
+					  	</div>
+					 	<button id = "signIn" ng-click = "signIn()" type="submit" class="btn btn-default">Sign in</button>
+					</form>	  
+				</div>
+			</nav>
 
-			</form>	  
-		</div><!-- /.container-fluid -->
-	</nav>
+			<header>
+				<div class="container">
+					<h1>Sign-in to Explore Songs</h1>
+					<h3 id="newUser">Or create an account:</h3>	
+					<!-- This creates a form for the user to create a new account -->
+					<form id ="newAccount" name="myForm" class = "form-inline">
+						<div class="form-group">
+							<label for="newName"> Create a Username: </label>
+							<input id="newName" name = "newName" ng-model="newName" ng-minlength="6" type ="string" class="form-control"></input>
 
-	<header>
-
-			<div class="container">
-				<h1>Sign-in to Explore Songs</h1>
-				<h3 id="newUser">Or create an account:</h3>	
-				<form id ="newAccount" name="myForm" class = "form-inline">
-					<div class="form-group">
-						<label for="newName"> Create a Username: </label>
-						<input id="newName" name = "newName" ng-model="newName" ng-minlength="6" type ="string" class="form-control"></input>
-
-						<label for="email"> Enter an email address: </label>
-						<input id="newEmail" name = "newEmail" ng-model="newEmail" type ="email" class="form-control"></input>
-						
-						<label for="newPass">Create a Password</label>
-						<input id="newPass" name = "newPass" type = "password" ng-model="newPass" class="form-control"></input>
-					<string
-					
-					<div class="form-group">
-						<button id = "create" ng-click="signUp()" ng-disabled="myForm.$invalid" type="submit">Create Account</button>  <!-- took out class "btn btn-primary" -->
-					</div>
-					
-					<span id = "help" class="help-block" ng-show="myForm.newName.$error.minlength">Username is too short</span>
-				</form>
-			</div>
+							<label for="email"> Enter an email address: </label>
+							<input id="newEmail" name = "newEmail" ng-model="newEmail" type ="email" class="form-control"></input>
+								
+							<label for="newPass">Create a Password</label>
+							<input id="newPass" name = "newPass" type = "password" ng-model="newPass" class="form-control"></input>
+							
+							<!-- This button will sign in, and redirect to spot.html -->
+							<div class="form-group">
+								<button id = "create" ng-click="signUp()" ng-disabled="myForm.$invalid" type="submit">Create Account</button> 
+							</div>
+							<!-- This will appear id the username is too short -->
+							<span id = "help" class="help-block" ng-show="myForm.newName.$error.minlength">Username is too short</span>
+						</div>
+					</form>
+				</div>
+				</div>
+			</header>
 		</div>
-	
-	</header>
-</div>
-</body>
+	</body>
 </html>
